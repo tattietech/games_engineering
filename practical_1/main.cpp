@@ -4,7 +4,7 @@ using namespace sf;
 using namespace std;
 
 Vector2f ballVelocity;
-bool server = false;
+bool p1Server = true;
 Font font;
 Text score;
 int p1Score = 0;
@@ -39,7 +39,7 @@ void Reset() {
 	ball.setPosition(gameWidth / 2, gameHeight / 2);
 
 	// inline if statement, if server true ballVelocity.x = 100, else -100
-	ballVelocity = { (server ? 100.0f : -100.0f), 60.0f };
+	ballVelocity = { (p1Server ? -100.0f : 100.0f), 60.0f };
 
 	// Set score
 	score.setString(to_string(p1Score) + "   " + to_string(p2Score));
@@ -103,15 +103,26 @@ void Update(RenderWindow &window) {
 	if (Keyboard::isKeyPressed(controls[1])) {
 		direction1++;
 	}
-
-	if (ball.getPosition().y < paddles[1].getPosition().y && ballVelocity.x > 0) {
-		direction2--;
+	// Moves second paddle based on ball position and direction of travel if in single player mode
+	if (singlePlayer) {
+		if (ball.getPosition().y < paddles[1].getPosition().y && ballVelocity.x > 0) {
+			direction2--;
+		}
+		if (ball.getPosition().y > paddles[1].getPosition().y && ballVelocity.x > 0) {
+			direction2++;
+		}
 	}
-	if (ball.getPosition().y > paddles[1].getPosition().y && ballVelocity.x > 0) {
-		direction2++;
+	// Uses up and down arrows to move paddle if not in single player mode
+	else {
+		if (Keyboard::isKeyPressed(controls[2])) {
+			direction2--;
+		}
+		if (Keyboard::isKeyPressed(controls[3])) {
+			direction2++;
+		}
 	}
 
-	// Moves paddles on key press
+	// Prevent paddles from going out of bounds
 	if (paddles[0].getPosition().y > gameHeight - paddleSize.y / 2) {
 		direction1--;
 	}
@@ -123,6 +134,8 @@ void Update(RenderWindow &window) {
 	else if (paddles[1].getPosition().y < 0 + paddleSize.y / 2.3) {
 		direction2++;
 	}
+
+	// Moves paddles
 	paddles[0].move(0, direction1 * paddleSpeed * dt);
 	paddles[1].move(0, direction2 * paddleSpeed * dt);
 
@@ -153,11 +166,13 @@ void Update(RenderWindow &window) {
 	else if (bx > gameWidth) {
 		// right wall
 		p1Score += 1;
+		p1Server = true;
 		Reset();
 	}
 	else if (bx < 0) {
 		// left wall
 		p2Score += 1;
+		p1Server = false;
 		Reset();
 	}
 	else if (
