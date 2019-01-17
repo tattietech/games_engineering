@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
+# include <iostream>
+
 using namespace sf;
 using namespace std;
 
@@ -56,7 +57,7 @@ void Load() {
 	}
 
 	// Load font-face from res dir
-	if (!font.loadFromFile("Roboto-Bold.ttf"))
+	if (!font.loadFromFile("res/fonts/Roboto-Bold.ttf"))
 	{
 		cout << "can't load font" << endl;
 	}
@@ -68,7 +69,6 @@ void Load() {
 	score.setString(to_string(0) + "   " + to_string(0));
 	//Set fill color
 	score.setFillColor(Color::White);
-
 
 	Reset();
 }
@@ -207,10 +207,6 @@ void Render(RenderWindow &window) {
 	window.draw(paddles[1]);
 	window.draw(ball);
 	window.draw(score);
-}
-
-void Menu(RenderWindow &window) {
-
 }
 
 int main()
