@@ -2,7 +2,6 @@
 #include <iostream>
 #include "game.h"
 #include "ship.h"
-#include "Invader.h"
 
 // Vector containing all of the ships
 std::vector<Ship *> ships;
