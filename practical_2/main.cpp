@@ -16,13 +16,11 @@ void Load(sf::RenderWindow &window) {
 	if (spritesheet.loadFromFile("res/img/invaders_sheet.png")) {
 		std::cerr << "Failed to load spritesheet!" << std::endl;
 	}
-	//Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), { 100, 100 });
-	//ships.push_back(inv);
 
-	for (int r = 0; r < invaders_rows; ++r) {
-		auto rect = sf::IntRect(32*r, r, 32, 32);
-		for (int c = 0; c < invaders_columns; ++c) {
-			sf::Vector2f position = {100*(float)(r+1), 50*(float)(c+1)};
+	for (int r = 0; r < invader_rows; ++r) {
+		auto rect = sf::IntRect(32*r, 0, 32, 32);
+		for (int c = 0; c < invader_columns; ++c) {
+			sf::Vector2f position = { 50 * (float)(c+0.4), 40*(float)(r+0.4)};
 			auto inv = new Invader(rect, position);
 			ships.push_back(inv);
 		}
