@@ -1,8 +1,9 @@
 #include "Ship.h"
 #include "game.h"
+#include <iostream>
 
-bool Invader::direction;
-float Invader::speed;
+bool Invader::direction = true;
+float Invader::speed = 50.0f;
 
 Ship::Ship() {};
 
@@ -19,7 +20,8 @@ void Ship::Update(const float &dt) {}
 //Although we set this to pure virtual, we still have to define it.
 Ship::~Ship() = default;
 
-// Invader Class
+
+//////////// Invader Class ///////////////////////
 Invader::Invader() : Ship() {}
 
 Invader::Invader(sf::IntRect ir, sf::Vector2f pos) : Ship(ir) {
@@ -31,7 +33,7 @@ void Invader::Update(const float &dt) {
 	// Applies any generic updates from ship
 	Ship::Update(dt);
 
-	// If direction is truee then move forwards, if not, backwards
+	// If direction is true then move forwards, if not, backwards
 	move(dt * (direction ? 1.0f : -1.0f) * speed, 0);
 
 	// Change direction when the group of invaders reaches either wall
@@ -41,5 +43,36 @@ void Invader::Update(const float &dt) {
 			for (int i = 0; i < ships.size(); i++) {
 				ships[i]->move(0, 24);
 				}
+			//speed += 10;
 	}
 }
+
+/////////////////// Player Class ////////////////////////
+Player::Player(float playerSpeed) : Ship(sf::IntRect(160, 32, 32, 32)) {
+	setPosition({ gameHeight * .5f, gameHeight - 32.f });
+	this->playerSpeed = playerSpeed;
+}
+
+void Player::Update(const float &dt) {
+	Ship::Update(dt);
+	float direction = 0.0f;
+	if (sf::Keyboard::isKeyPressed(controls[0])) {
+		direction--;
+	}
+	else if (sf::Keyboard::isKeyPressed(controls[1])) {
+		direction++;
+	}
+
+	// Prevents player from mobing 
+	if (getPosition().x < 0) {
+		direction++;
+	}
+	else if (getPosition().x > gameWidth - 32) {
+		direction--;
+	}
+	else if (getPosition().y > gameHeight - 32) {
+		setPosition({ getPosition().x, gameHeight - 32.f });
+	}
+
+	move(direction * playerSpeed * dt, 0);
+};

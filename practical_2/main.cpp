@@ -5,7 +5,6 @@
 
 // Vector containing all of the ships
 std::vector<Ship *> ships;
-
 sf::Texture spritesheet;
 
 
@@ -17,6 +16,7 @@ void Load(sf::RenderWindow &window) {
 		std::cerr << "Failed to load spritesheet!" << std::endl;
 	}
 
+	// Creates invader bojects and adds them to ships
 	for (int r = 0; r < invader_rows; ++r) {
 		auto rect = sf::IntRect(32*r, 0, 32, 32);
 		for (int c = 0; c < invader_columns; ++c) {
@@ -25,6 +25,11 @@ void Load(sf::RenderWindow &window) {
 			ships.push_back(inv);
 		}
 	}
+
+	// Adds player object to ships
+	auto player = new Player(200.f);
+	ships.push_back(player);
+	
 }
 
 void Update(sf::RenderWindow &window) {
