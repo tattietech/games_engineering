@@ -34,8 +34,9 @@ public:
 	Player(float playerSpeed);
 	void Update(const float &dt) override;
 	float playerSpeed;
-	const sf::Keyboard::Key controls[2] = {
+	const sf::Keyboard::Key controls[3] = {
 	sf::Keyboard::A,	// Player moves left
 	sf::Keyboard::D,	// Player move right
+	sf::Keyboard::W,	//Shoots
 	};
 };

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "game.h"
 #include "ship.h"
+#include "bullet.h"
 
 // Vector containing all of the ships
 std::vector<Ship *> ships;
@@ -16,7 +17,7 @@ void Load(sf::RenderWindow &window) {
 		std::cerr << "Failed to load spritesheet!" << std::endl;
 	}
 
-	// Creates invader bojects and adds them to ships
+	// Creates invader objects and adds them to ships
 	for (int r = 0; r < invader_rows; ++r) {
 		auto rect = sf::IntRect(32*r, 0, 32, 32);
 		for (int c = 0; c < invader_columns; ++c) {
@@ -29,6 +30,7 @@ void Load(sf::RenderWindow &window) {
 	// Adds player object to ships
 	auto player = new Player(200.f);
 	ships.push_back(player);
+
 	
 }
 
@@ -50,6 +52,8 @@ void Update(sf::RenderWindow &window) {
 	for (auto &s : ships) {
 		s->Update(dt);
 	}
+
+	Bullet::Update(dt);
 }
 
 void Render(sf::RenderWindow &window) {
@@ -57,6 +61,7 @@ void Render(sf::RenderWindow &window) {
 	for (const auto s : ships) {
 		window.draw(*s);
 	}
+	Bullet::Render(window);
 }
 
 int main() {

@@ -1,4 +1,5 @@
 #include "Ship.h"
+#include "bullet.h"
 #include "game.h"
 #include <iostream>
 
@@ -65,6 +66,13 @@ void Player::Update(const float &dt) {
 	else if (sf::Keyboard::isKeyPressed(controls[1])) {
 		direction++;
 	}
+	else if (sf::Keyboard::isKeyPressed(controls[2])) {
+		Bullet::Fire(getPosition(), false);
+	}
+
+	// Fire mechanism
+	static float firetime = 0.0f;
+	firetime -= dt;
 
 	// Prevents player from going out of bounds
 	if (getPosition().x < 0) {
@@ -73,8 +81,9 @@ void Player::Update(const float &dt) {
 	else if (getPosition().x > gameWidth - 32) {
 		direction--;
 	}
-	else if (getPosition().y > gameHeight - 32) {
+	else if (firetime <=0 && getPosition().y > gameHeight - 32) {
 		setPosition({ getPosition().x, gameHeight - 32.f });
+		firetime = 7.0f;
 	}
 
 
