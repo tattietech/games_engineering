@@ -54,7 +54,10 @@ Player::Player(float playerSpeed) : Ship(sf::IntRect(160, 32, 32, 32)) {
 }
 
 void Player::Update(const float &dt) {
+	// Apllies ship updates
 	Ship::Update(dt);
+
+	// Moves player
 	float direction = 0.0f;
 	if (sf::Keyboard::isKeyPressed(controls[0])) {
 		direction--;
@@ -63,7 +66,7 @@ void Player::Update(const float &dt) {
 		direction++;
 	}
 
-	// Prevents player from mobing 
+	// Prevents player from going out of bounds
 	if (getPosition().x < 0) {
 		direction++;
 	}
@@ -73,6 +76,7 @@ void Player::Update(const float &dt) {
 	else if (getPosition().y > gameHeight - 32) {
 		setPosition({ getPosition().x, gameHeight - 32.f });
 	}
+
 
 	move(direction * playerSpeed * dt, 0);
 };
