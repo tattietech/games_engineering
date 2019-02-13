@@ -17,6 +17,17 @@ Ship::Ship(sf::IntRect ir) : sf::Sprite() {
 
 void Ship::Update(const float &dt) {}
 
+bool Ship::is_exploded() const
+{
+	return _exploded;
+}
+
+void Ship::Explode()
+{
+	setTextureRect(sf::IntRect(128, 32, 32, 32));
+	_exploded = true;
+}
+
 //Define the ship deconstructor. 
 //Although we set this to pure virtual, we still have to define it.
 Ship::~Ship() = default;
@@ -58,6 +69,10 @@ void Player::Update(const float &dt) {
 	// Apllies ship updates
 	Ship::Update(dt);
 
+	// Fire mechanism
+	static float firetime = 0.0f;
+	firetime -= dt;
+
 	// Moves player
 	float direction = 0.0f;
 	if (sf::Keyboard::isKeyPressed(controls[0])) {
@@ -66,13 +81,11 @@ void Player::Update(const float &dt) {
 	else if (sf::Keyboard::isKeyPressed(controls[1])) {
 		direction++;
 	}
-	else if (sf::Keyboard::isKeyPressed(controls[2])) {
+	
+	if (firetime <= 0 && sf::Keyboard::isKeyPressed(controls[2])) {
 		Bullet::Fire(getPosition(), false);
+		firetime = 0.7f;
 	}
-
-	// Fire mechanism
-	static float firetime = 0.0f;
-	firetime -= dt;
 
 	// Prevents player from going out of bounds
 	if (getPosition().x < 0) {
@@ -80,10 +93,8 @@ void Player::Update(const float &dt) {
 	}
 	else if (getPosition().x > gameWidth - 32) {
 		direction--;
-	}
-	else if (firetime <=0 && getPosition().y > gameHeight - 32) {
+	} else if (getPosition().y > gameHeight - 32) {
 		setPosition({ getPosition().x, gameHeight - 32.f });
-		firetime = 7.0f;
 	}
 
 

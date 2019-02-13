@@ -5,6 +5,7 @@ protected:
 	sf::IntRect _sprite;
 	// Default constructor is hidden
 	Ship();
+	bool _exploded;
 
 public:
 	// Constructor that takes a sprite
@@ -15,6 +16,9 @@ public:
 
 	// Update, virtual so can be overrided but not pure virtual
 	virtual void Update(const float &dt);
+
+	bool is_exploded() const;
+	virtual void Explode();
 };
 
 // Invader class

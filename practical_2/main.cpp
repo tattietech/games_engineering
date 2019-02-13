@@ -7,6 +7,7 @@
 // Vector containing all of the ships
 std::vector<Ship *> ships;
 sf::Texture spritesheet;
+Player player = Player(200.f);
 
 
 void Load(sf::RenderWindow &window) {
@@ -28,8 +29,7 @@ void Load(sf::RenderWindow &window) {
 	}
 
 	// Adds player object to ships
-	auto player = new Player(200.f);
-	ships.push_back(player);
+	ships.push_back(&player);
 
 	
 }
