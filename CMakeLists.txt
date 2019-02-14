@@ -23,6 +23,12 @@ add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND}
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/res
 )
 
+## Tile loader lib
+file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader/*.h)
+add_library(lib_tile_level_loader STATIC ${SOURCE_FILES})
+target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
+target_link_libraries(lib_tile_level_loader sfml-graphics)
+
 #### Practical 1 - PONG ####
 file(GLOB_RECURSE SOURCES practical_1/*.cpp practical_1/*.h) 
 add_executable(PRACTICAL_1 ${SOURCES}) 
@@ -35,3 +41,10 @@ add_executable(PRACTICAL_2 ${SOURCES})
 target_include_directories(PRACTICAL_2 PRIVATE ${SFML_INCS}) 
 target_link_libraries(PRACTICAL_2 sfml-graphics)
 add_dependencies(PRACTICAL_2 copy_resources)
+
+#### Practical 3 - Tile Engine ####
+file(GLOB_RECURSE SOURCES practical_3/*.cpp practical_3/*.h) 
+add_executable(PRACTICAL_3 ${SOURCES}) 
+target_include_directories(PRACTICAL_3 PRIVATE ${SFML_INCS}) 
+target_link_libraries(PRACTICAL_3 sfml-graphics)
+add_dependencies(PRACTICAL_3 copy_resources)
