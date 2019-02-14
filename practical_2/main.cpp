@@ -59,7 +59,9 @@ void Update(sf::RenderWindow &window) {
 void Render(sf::RenderWindow &window) {
 	// Draw everything to the screen
 	for (const auto s : ships) {
-		window.draw(*s);
+		if (s->is_visible()) {
+			window.draw(*s);
+		}
 	}
 	Bullet::Render(window);
 }

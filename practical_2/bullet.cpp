@@ -1,6 +1,7 @@
 #include "bullet.h"
 #include "game.h"
 #include "Ship.h"
+#include <iostream>
 
 unsigned char Bullet::bulletPointer;
 Bullet Bullet::bullets[256];
@@ -9,6 +10,9 @@ Bullet::Bullet(){}
 
 void Bullet::_Update(const float & dt)
 {
+	float explode_time = 0.0f;
+	explode_time -= dt;
+
 	if (getPosition().y < -32 || getPosition().y > gameHeight + 32) {
 		// off screen - do nothing
 		return;
@@ -19,7 +23,7 @@ void Bullet::_Update(const float & dt)
 
 		for (auto s : ships) {
 			if (!_mode && s == &player) {
-				// Players nullets don't collide with player
+				// Players bullets don't collide with player
 				continue;
 			}
 			if (_mode && s != &player) {
@@ -32,7 +36,8 @@ void Bullet::_Update(const float & dt)
 				s->Explode();
 				// warp bullet off screen
 				setPosition(-100, - 100);
-				return;
+				explode_time += 0.7f;
+				return;			
 			}
 		}
 	}

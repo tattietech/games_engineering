@@ -6,6 +6,7 @@ protected:
 	// Default constructor is hidden
 	Ship();
 	bool _exploded;
+	bool _visible;
 
 public:
 	// Constructor that takes a sprite
@@ -19,6 +20,11 @@ public:
 
 	bool is_exploded() const;
 	virtual void Explode();
+
+	bool is_visible() const;
+	virtual void Remove();
+
+	float explode_time;
 };
 
 // Invader class

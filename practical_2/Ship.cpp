@@ -11,21 +11,39 @@ Ship::Ship() {};
 
 Ship::Ship(sf::IntRect ir) : sf::Sprite() {
 	_sprite = ir;
+	_exploded = false;
+	_visible = true;
+	explode_time = 0.7f;
 	setTexture(spritesheet);
 	setTextureRect(_sprite);
 };
 
-void Ship::Update(const float &dt) {}
+void Ship::Update(const float &dt) {
+	if (is_exploded() && is_visible()) {
+		explode_time -= dt;
+	}
+	if (is_exploded() && is_visible() && explode_time <= 0) {
+		Remove();
+	}
+}
 
 bool Ship::is_exploded() const
 {
 	return _exploded;
 }
 
+bool Ship::is_visible() const {
+	return _visible;
+}
+
 void Ship::Explode()
 {
 	setTextureRect(sf::IntRect(128, 32, 32, 32));
 	_exploded = true;
+}
+
+void Ship::Remove() {
+	_visible = false;
 }
 
 //Define the ship deconstructor. 
@@ -50,12 +68,22 @@ void Invader::Update(const float &dt) {
 
 	// Change direction when the group of invaders reaches either wall
 	if ((direction && getPosition().x > gameWidth - 16) ||
-		(!direction && getPosition().x < 16)) {
+		(!direction && getPosition().x < 16) &&
+		(is_visible())
+		) {
 			direction = !direction;
 			for (int i = 0; i < ships.size(); i++) {
 				ships[i]->move(0, 24);
 				}
 			//speed += 10;
+	}
+
+	static float firetime = 0.0f;
+	firetime -= dt;
+
+	if (firetime <= 0 && rand() % 100 == 0 && is_visible()) {
+		Bullet::Fire(getPosition(), true);
+		firetime = 4.0f + (rand() % 100);
 	}
 }
 
