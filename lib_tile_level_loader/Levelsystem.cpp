@@ -111,3 +111,33 @@ void LevelSystem::buildSprites() {
 	}
 }
 
+// Returns tile position
+sf::Vector2f LevelSystem::getTilePosition(sf::Vector2ul p) {
+	return (Vector2f(p.x, p.y) * _tileSize);
+}
+
+// Returns and actual tile
+LevelSystem::TILE LevelSystem::getTile(sf::Vector2ul p) {
+	if (p.x > _width || p.y > _height) {
+		throw string("Tile out of range: ") + to_string(p.x) + "," + to_string(p.y) + ")";
+	}
+
+	// This line coverts the 2d array position into a 1d index
+	return _tiles[(p.y * _width) + p.x];
+}
+
+// Returns a tile at a specific screen coordinate
+LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
+	auto a = v - _offset;
+	if (a.x < 0 || a.y < 0) {
+		throw string("Tile out of range ");
+	}
+	return getTile(Vector2ul((v - _offset) / (_tileSize)));
+}
+
+// Renders map on screen
+void LevelSystem::render(RenderWindow &window) {
+	for (size_t i = 0; i < _width * _height; ++i) {
+		window.draw(*_sprites[i]);
+	}
+}
