@@ -16,4 +16,5 @@ class Player : public Entity {
 		sf::Keyboard::W,	// Player moves up
 		sf::Keyboard::S,	// Player moves down
 	};
+	bool validmove(sf::Vector2f pos);
 };

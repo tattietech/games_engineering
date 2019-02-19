@@ -1,8 +1,14 @@
 #include "player.h"
+#include "Levelsystem.h"
 
+bool Player::validmove(sf::Vector2f pos) {
+	return (ls::getTileAt(pos) != ls::WALL);
+}
 
 void Player::update(double dt) {
 	
+	sf::Vector2f currentPos = sf::Vector2f(getPosition().x, getPosition().y);
+
 	float directionX = 0.0f;
 	float directionY = 0.0f;
 

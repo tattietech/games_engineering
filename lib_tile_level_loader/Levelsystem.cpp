@@ -38,6 +38,7 @@ void LevelSystem::loadLevelFile(const string& path, float tileSize) {
 
 	// Load in file to buffer
 	ifstream f(path);
+	std::cout << f.good();
 	if (f.good()) {
 		f.seekg(0, ios::end);
 		buffer.resize(f.tellg());
@@ -46,7 +47,7 @@ void LevelSystem::loadLevelFile(const string& path, float tileSize) {
 		f.close();
 	}
 	else {
-		throw string("Couldn't open level file: ") + path;
+		std::cout << string("Couldn't open level file: ") + path <<std::endl;
 	}
 
 	// Reads through the file contents and creates tiles based on the letters
@@ -133,6 +134,16 @@ LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
 		throw string("Tile out of range ");
 	}
 	return getTile(Vector2ul((v - _offset) / (_tileSize)));
+}
+
+size_t LevelSystem::getHeight()
+{
+	return _height;
+}
+
+size_t LevelSystem::getWidth()
+{
+	return _width;
 }
 
 // Renders map on screen

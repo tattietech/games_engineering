@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include "player.h"
+#include "Levelsystem.h"
 
 
 const int gameWidth = 800;
@@ -9,7 +10,17 @@ Player player;
 
 void Load(sf::RenderWindow &window) {
 	// Loads items to the screen at game beginning
+	ls::loadLevelFile("res/maze_2.txt");
+
+	// Print the level to the console
+	for (size_t y = 0; y < ls::getHeight(); ++y) {
+		for (size_t x = 0; x < ls::getWidth(); ++x) {
+			std::cout << ls::getTile({ x, y });
+		}
+		std::cout << std::endl;
+	}
 }
+
 
 void Update(sf::RenderWindow &window) {
 	// Game logic, updates everything between frames
@@ -32,6 +43,7 @@ void Update(sf::RenderWindow &window) {
 void Render(sf::RenderWindow &window) {
 	// Draw everything to the screen
 	player.render(window);
+	ls::render(window);
 }
 
 int main() {
