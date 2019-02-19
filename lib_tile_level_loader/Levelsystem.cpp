@@ -30,7 +30,7 @@ void LevelSystem::setColor(LevelSystem::TILE t, Color c) {
 	_colours[t] = c;
 }
 
-// Load in fule to buffer
+// Load in file to buffer
 void LevelSystem::loadLevelFile(const string& path, float tileSize) {
 	_tileSize = tileSize;
 	size_t w = 0, h = 0;
