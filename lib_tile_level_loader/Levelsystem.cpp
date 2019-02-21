@@ -9,7 +9,7 @@ using namespace sf;
 std::unique_ptr<LevelSystem::TILE[]> LevelSystem::_tiles;
 size_t LevelSystem::_width;
 size_t LevelSystem::_height;
-Vector2f LevelSystem::_offset(0.0f, 30.0f);
+Vector2f LevelSystem::_offset(0.0f, 0.0f);
 
 float LevelSystem::_tileSize(100.f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
@@ -131,9 +131,12 @@ LevelSystem::TILE LevelSystem::getTile(sf::Vector2ul p) {
 LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
 	auto a = v - _offset;
 	if (a.x < 0 || a.y < 0) {
-		throw string("Tile out of range ");
+		std::cerr << "Tile out of range ";
+		return EMPTY;
 	}
+
 	return getTile(Vector2ul((v - _offset) / (_tileSize)));
+
 }
 
 size_t LevelSystem::getHeight()

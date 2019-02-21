@@ -11,6 +11,8 @@ void Player::update(double dt) {
 
 	float directionX = 0.0f;
 	float directionY = 0.0f;
+	
+	sf::Vector2f movement = sf::Vector2f (0.0f, 0.0f);
 
 	if (sf::Keyboard::isKeyPressed(controls[0])) {
 		directionX--;
@@ -26,8 +28,13 @@ void Player::update(double dt) {
 		directionY++;
 	}
 
-	sf::Vector2f position(directionX * _speed * dt, directionY *_speed * dt);
-	move(position);
+	movement.x = directionX * _speed * dt;
+	movement.y = directionY * _speed * dt;
+
+	
+	if (validmove(getPosition() + movement)) {
+		move(movement);
+	}
 
 	Entity::update(dt);
 }

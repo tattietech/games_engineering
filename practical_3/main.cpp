@@ -10,7 +10,7 @@ Player player;
 
 void Load(sf::RenderWindow &window) {
 	// Loads items to the screen at game beginning
-	ls::loadLevelFile("res/maze_2.txt");
+	ls::loadLevelFile("res/levels/maze_2.txt");
 
 	// Print the level to the console
 	for (size_t y = 0; y < ls::getHeight(); ++y) {
