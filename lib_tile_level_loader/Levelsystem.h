@@ -25,6 +25,7 @@ public:
 	static TILE getTileAt(sf::Vector2f);
 	static size_t getHeight();
 	static size_t getWidth();
+	static sf::Vector2f getStartPosition();
 
 protected:
 	static std::unique_ptr<TILE[]> _tiles; //Internal array of tiles
@@ -33,6 +34,8 @@ protected:
 	static sf::Vector2f _offset; //Screenspace offset of level, when rendered.
 	static float _tileSize; //Screenspace size of each tile, when rendered.
 	static std::map<TILE, sf::Color> _colours; //color to render each tile type
+	static sf::Vector2f _startPosition;
+	static void setStartPosition();
 
 	//array of sfml sprites of each tile
 	static std::vector<std::unique_ptr<sf::RectangleShape>> _sprites;

@@ -4,8 +4,8 @@
 #include "Levelsystem.h"
 
 
-const int gameWidth = 800;
-const int gameHeight = 600;
+const int gameWidth = 1600;
+const int gameHeight = 500;
 Player player;
 
 void Load(sf::RenderWindow &window) {
@@ -19,6 +19,8 @@ void Load(sf::RenderWindow &window) {
 		}
 		std::cout << std::endl;
 	}
+
+	player.setPosition(ls::getStartPosition());
 }
 
 
