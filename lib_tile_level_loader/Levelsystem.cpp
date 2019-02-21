@@ -9,7 +9,8 @@ using namespace sf;
 std::unique_ptr<LevelSystem::TILE[]> LevelSystem::_tiles;
 size_t LevelSystem::_width;
 size_t LevelSystem::_height;
-Vector2f LevelSystem::_offset(0.0f, 30.0f);
+Vector2f LevelSystem::_offset(0.0f, 0.0f);
+Vector2f LevelSystem::_startPosition;
 
 float LevelSystem::_tileSize(100.f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
@@ -108,6 +109,10 @@ void LevelSystem::buildSprites() {
 			s->setSize(Vector2f(_tileSize, _tileSize));
 			s->setFillColor(getColor(getTile({ x, y })));
 			_sprites.push_back(move(s));
+			if (getTile({x, y}) == ls::START) {
+				_startPosition.x = x*120;
+				_startPosition.y = y*100;
+			}
 		}
 	}
 }
@@ -145,6 +150,12 @@ size_t LevelSystem::getWidth()
 {
 	return _width;
 }
+
+sf::Vector2f LevelSystem::getStartPosition()
+{
+	return _startPosition;
+}
+
 
 // Renders map on screen
 void LevelSystem::render(RenderWindow &window) {

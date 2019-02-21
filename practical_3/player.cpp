@@ -6,8 +6,6 @@ bool Player::validmove(sf::Vector2f pos) {
 }
 
 void Player::update(double dt) {
-	
-	sf::Vector2f currentPos = sf::Vector2f(getPosition().x, getPosition().y);
 
 	float directionX = 0.0f;
 	float directionY = 0.0f;
@@ -35,7 +33,6 @@ void Player::update(double dt) {
 Player::Player()
 	: _speed(200.0f), Entity(std::make_unique<sf::CircleShape>(25.f)) {
 	_shape->setFillColor(sf::Color::Magenta);
-	_shape->setOrigin(sf::Vector2f(25.f, 25.f));
 }
 
 void Player::render(sf::RenderWindow &window) const {
