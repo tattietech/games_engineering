@@ -1,12 +1,11 @@
-// player.h
 #pragma once
 #include "entity.h"
 
 class Player : public Entity {
-	private:
+private:
 	float _speed;
 
-	public:
+public:
 	void update(double dt) override;
 	Player();
 	void render(sf::RenderWindow &window) const override;
@@ -16,4 +15,5 @@ class Player : public Entity {
 		sf::Keyboard::W,	// Player moves up
 		sf::Keyboard::S,	// Player moves down
 	};
+	bool validmove(sf::Vector2f pos);
 };
