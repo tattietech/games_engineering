@@ -1,23 +1,24 @@
 #include "ghost.h"
+#include <iostream>
 
 void Ghost::update(double dt)
 {
 	sf::Vector2f movement = sf::Vector2f(0.0f, 0.0f);
 	int random = rand() % 100;
 
-	if (random == 0 && _movementCool <= 0) {
+	if (random == 0 && _movementCool <= 0 && getPosition().x <= 775) {
 		directionX++;
 		_movementCool += 2.f;
 	}
-	else if (random == 1 && _movementCool <= 0) {
+	else if (random == 1 && _movementCool <= 0 && getPosition().x >= 0) {
 		directionX--;
 		_movementCool += 2.f;
 	}
-	else if (random == 2 && _movementCool <= 0) {
+	else if (random == 2 && _movementCool <= 0 && getPosition().y <= 575) {
 		directionY++;
 		_movementCool += 2.f;
 	}
-	else if (random == 3 && _movementCool <= 0) {
+	else if (random == 3 && _movementCool <= 0 && getPosition().y >= 0) {
 		directionY--;
 		_movementCool += 2.f;
 	}
