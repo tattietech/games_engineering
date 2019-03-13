@@ -11,25 +11,22 @@ void Player::update(double dt) {
 
 	if (sf::Keyboard::isKeyPressed(controls[0]) && getPosition().x >= 0) {
 		directionX--;
-		std::cout << "X: " << getPosition().x << " Y: " << getPosition().y << std::endl;
 	}
 	else if (sf::Keyboard::isKeyPressed(controls[1]) && getPosition().x <= 775) {
 		directionX++;
-		std::cout << "X: " << getPosition().x << " Y: " << getPosition().y << std::endl;
 	}
 
 	if (sf::Keyboard::isKeyPressed(controls[2]) && getPosition().y >= 0) {
 		directionY--;
-		std::cout << "X: " << getPosition().x << " Y: " << getPosition().y << std::endl;
 	}
 	else if (sf::Keyboard::isKeyPressed(controls[3]) && getPosition().y <= 575) {
 		directionY++;
-		std::cout << "X: " << getPosition().x << " Y: " << getPosition().y << std::endl;
 	}
 
 	movement.x = directionX * _speed * dt;
 	movement.y = directionY * _speed * dt;
 	move(movement);
+
 
 	Entity::update(dt);
 }

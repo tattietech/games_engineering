@@ -22,6 +22,16 @@ void Entity::move(const sf::Vector2f &pos)
 
 Entity::Entity(std::unique_ptr<sf::Shape> s) : _shape(std::move(s)) {}
 
+
 void EntityManager::update(const double dt) {
-	// ?
+	for (auto &e : list) {
+		e->update(dt);
+	}
+}
+
+void EntityManager::render(sf::RenderWindow & window)
+{
+	for (auto &e : list) {
+		e->render(window);
+	}
 }
