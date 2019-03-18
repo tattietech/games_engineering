@@ -29,8 +29,7 @@ void EntityManager::update(const double dt) {
 	}
 }
 
-void EntityManager::render(sf::RenderWindow & window)
-{
+void EntityManager::render(sf::RenderWindow & window) {
 	for (auto &e : list) {
 		e->render(window);
 	}

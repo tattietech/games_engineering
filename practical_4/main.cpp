@@ -2,6 +2,7 @@
 #include "player.h"
 #include "ghost.h"
 #include <iostream>
+#include "system_renderer.h"
 
 using namespace sf;
 using namespace std;
@@ -49,6 +50,7 @@ void Render(RenderWindow &window) {
 	for (auto &e : em.list) {
 		e->render(window);
 	}
+	//Renderer::render();
 }
 
 int main() {
