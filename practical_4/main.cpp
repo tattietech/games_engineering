@@ -8,25 +8,20 @@ using namespace std;
 
 const int gameWidth = 800;
 const int gameHeight = 600;
-std::vector<Entity *> entities;
+EntityManager em;
 Player player;
 
 void Load(RenderWindow &window) {
 	// Loads items to the screen at game beginning
-	entities.push_back(&player);
+	em.list.push_back(std::shared_ptr<Entity>(&player));
 
 	for (int i = 0; i < 4; i++) {
 		Ghost* ghost = new Ghost();
 		ghost->setColour(sf::Color(rand() % 255, rand() % 255, rand() % 255));
-		entities.push_back(ghost);
+		em.list.push_back(std::shared_ptr<Entity>(ghost));
 	}
 
-	entities[0]->setPosition(Vector2f(700, 500));
-
-
-	for (auto &e : entities) {
-		cout << e << endl;
-	}
+	em.list[0]->setPosition(Vector2f(700, 500));
 }
 
 void Update(RenderWindow &window) {
@@ -44,15 +39,14 @@ void Update(RenderWindow &window) {
 		}
 	}
 
-
-	for (auto &e : entities) {
+	for (auto &e : em.list) {
 		e->update(dt);
 	}
 }
 
 void Render(RenderWindow &window) {
 	// Draw everything to the screen
-	for (auto &e : entities) {
+	for (auto &e : em.list) {
 		e->render(window);
 	}
 }
