@@ -47,10 +47,8 @@ void Update(RenderWindow &window) {
 
 void Render(RenderWindow &window) {
 	// Draw everything to the screen
-	for (auto &e : em.list) {
-		e->render(window);
-	}
-	//Renderer::render();
+	em.render(window);
+	Renderer::render();
 }
 
 int main() {

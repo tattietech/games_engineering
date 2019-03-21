@@ -1,4 +1,5 @@
 #include "entity.h"
+#include "system_renderer.h"
 
 void Entity::update(const double dt)
 {
