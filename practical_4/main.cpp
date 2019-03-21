@@ -50,11 +50,12 @@ void Render(RenderWindow &window) {
 	for (auto &e : em.list) {
 		e->render(window);
 	}
-	//Renderer::render();
+	Renderer::render();
 }
 
 int main() {
 	RenderWindow window(VideoMode(gameWidth, gameHeight), "Pacman");
+	Renderer::initialise(window);
 	Load(window);
 	while (window.isOpen()) {
 		window.clear();
