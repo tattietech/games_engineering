@@ -12,7 +12,7 @@ private:
 public:
 	void update(double dt) override;
 	Ghost();
-	void render(sf::RenderWindow &window) const override;
+	void render() const override;
 	void setSpeed(float increase);
 	void setColour(sf::Color colour);
 };

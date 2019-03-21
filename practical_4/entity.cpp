@@ -1,23 +1,19 @@
 #include "entity.h"
 #include "system_renderer.h"
 
-void Entity::update(const double dt)
-{
+void Entity::update(const double dt) {
 	_shape->setPosition(_position);
 }
 
-const sf::Vector2f Entity::getPosition()
-{
+const sf::Vector2f Entity::getPosition() {
 	return _position;
 }
 
-void Entity::setPosition(const sf::Vector2f & pos)
-{
+void Entity::setPosition(const sf::Vector2f & pos) {
 	_position = pos;
 }
 
-void Entity::move(const sf::Vector2f &pos)
-{
+void Entity::move(const sf::Vector2f &pos) {
 	_position += pos;
 }
 
@@ -30,8 +26,8 @@ void EntityManager::update(const double dt) {
 	}
 }
 
-void EntityManager::render(sf::RenderWindow & window) {
+void EntityManager::render() {
 	for (auto &e : list) {
-		e->render(window);
+		e->render();
 	}
 }

@@ -14,14 +14,18 @@ Player player;
 
 void Load(RenderWindow &window) {
 	// Loads items to the screen at game beginning
+
+	// Adds player to entity manager
 	em.list.push_back(std::shared_ptr<Entity>(&player));
 
+	// Creates 4 ghosts and adds them to entity manager
 	for (int i = 0; i < 4; i++) {
 		Ghost* ghost = new Ghost();
 		ghost->setColour(sf::Color(rand() % 255, rand() % 255, rand() % 255));
 		em.list.push_back(std::shared_ptr<Entity>(ghost));
 	}
 
+	// Sets player position
 	em.list[0]->setPosition(Vector2f(700, 500));
 }
 
@@ -31,7 +35,7 @@ void Update(RenderWindow &window) {
 	static sf::Clock clock;
 	float dt = clock.restart().asSeconds();
 
-	// Check and consume events ,allows player to close and move window
+	// Check and consume events, allows player to close and move window
 	Event evnt;
 	while (window.pollEvent(evnt)) {
 		if (evnt.type == Event::Closed) {
@@ -40,19 +44,20 @@ void Update(RenderWindow &window) {
 		}
 	}
 
-	for (auto &e : em.list) {
-		e->update(dt);
-	}
+	// Call entity manager update method
+	em.update(dt);
 }
 
 void Render(RenderWindow &window) {
-	// Draw everything to the screen
-	em.render(window);
+	// Call entity manager render method
+	em.render();
+
 	Renderer::render();
 }
 
 int main() {
 	RenderWindow window(VideoMode(gameWidth, gameHeight), "Pacman");
+	Renderer::initialise(window);
 	Load(window);
 	while (window.isOpen()) {
 		window.clear();

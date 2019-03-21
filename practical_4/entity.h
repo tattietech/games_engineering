@@ -1,4 +1,3 @@
-#pragma once
 // entity.h
 // Handles position and movement for on screen entities
 #pragma once
@@ -17,7 +16,7 @@ public:
 	virtual ~Entity() = default;
 
 	virtual void update(const double dt);
-	virtual void render(sf::RenderWindow &window) const = 0;
+	virtual void render() const = 0;
 
 	const sf::Vector2f getPosition();
 	void setPosition(const sf::Vector2f &pos);
@@ -27,5 +26,5 @@ public:
 struct EntityManager {
 	std::vector<std::shared_ptr<Entity>> list;
 	void update(double dt);
-	void render(sf::RenderWindow &window);
+	void render();
 };

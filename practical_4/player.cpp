@@ -1,5 +1,6 @@
 #include "player.h"
 #include <iostream>
+#include "system_renderer.h"
 
 
 void Player::update(double dt) {
@@ -36,6 +37,6 @@ Player::Player()
 	_shape->setFillColor(sf::Color::Yellow);
 }
 
-void Player::render(sf::RenderWindow &window) const {
-	window.draw(*_shape);
+void Player::render() const {
+	Renderer::queue(_shape.get());
 }

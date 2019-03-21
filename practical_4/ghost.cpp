@@ -1,6 +1,7 @@
 #include "ghost.h"
 #include <iostream>
 #include <ctime>
+#include "system_renderer.h"
 
 void Ghost::update(double dt)
 {
@@ -56,9 +57,9 @@ Ghost::Ghost()
 }
 
 
-void Ghost::render(sf::RenderWindow & window) const {
+void Ghost::render() const {
 	// Draws our ghost on the screen
-	window.draw(*_shape);
+	Renderer::queue(_shape.get());
 }
 
 void Ghost::setSpeed(float increase) {
