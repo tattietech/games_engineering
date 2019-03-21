@@ -3,6 +3,7 @@
 #include "ghost.h"
 #include <iostream>
 #include "system_renderer.h"
+#include "pacman.h"
 
 using namespace sf;
 using namespace std;
@@ -10,23 +11,17 @@ using namespace std;
 const int gameWidth = 800;
 const int gameHeight = 600;
 EntityManager em;
-Player player;
 
 void Load(RenderWindow &window) {
 	// Loads items to the screen at game beginning
+	gameScene.reset(new GameScene());
+	menuScene.reset(new MenuScene());
+	gameScene->load();
+	menuScene->load();
 
-	// Adds player to entity manager
-	em.list.push_back(std::shared_ptr<Entity>(&player));
-
-	// Creates 4 ghosts and adds them to entity manager
-	for (int i = 0; i < 4; i++) {
-		Ghost* ghost = new Ghost();
-		ghost->setColour(sf::Color(rand() % 255, rand() % 255, rand() % 255));
-		em.list.push_back(std::shared_ptr<Entity>(ghost));
-	}
-
-	// Sets player position
-	em.list[0]->setPosition(Vector2f(700, 500));
+	// Start at main menu
+	activeScene = gameScene;
+	
 }
 
 void Update(RenderWindow &window) {
@@ -44,13 +39,12 @@ void Update(RenderWindow &window) {
 		}
 	}
 
-	// Call entity manager update method
-	em.update(dt);
+	activeScene->update(dt);
 }
 
 void Render(RenderWindow &window) {
 	// Call entity manager render method
-	em.render();
+	activeScene->render();
 
 	Renderer::render();
 }

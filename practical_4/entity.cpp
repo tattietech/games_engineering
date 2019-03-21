@@ -1,8 +1,10 @@
 #include "entity.h"
 #include "system_renderer.h"
+#include <iostream>
 
 void Entity::update(const double dt) {
-	_shape->setPosition(_position);
+	//_shape->setPosition(_position);
+	std::cout << "test" << std::endl;
 }
 
 const sf::Vector2f Entity::getPosition() {
