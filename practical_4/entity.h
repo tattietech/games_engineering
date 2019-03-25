@@ -1,7 +1,6 @@
 // entity.h
 // Handles position and movement for on screen entities
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <memory>
 
