@@ -20,7 +20,7 @@ void Load(RenderWindow &window) {
 	menuScene->load();
 
 	// Start at main menu
-	activeScene = gameScene;
+	activeScene = menuScene;
 	
 }
 

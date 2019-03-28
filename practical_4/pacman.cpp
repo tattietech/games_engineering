@@ -16,8 +16,10 @@ MenuScene::MenuScene()
 
 //pacman.cpp
 void MenuScene::update(double dt) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		activeScene = gameScene;
+	}
 	Scene::update(dt);
-	std::stringstream stream;
 	text.setString("Almost Pacman");
 }
 
@@ -36,17 +38,21 @@ void GameScene::respawn() {
 }
 
 void GameScene::update(double dt) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab)) {
+		activeScene = menuScene;
+	}
 	Scene::update(dt);
 }
 
 void GameScene::render() {
-	//Scene::render();
+	Scene::render();
 }
 
+
+Player player;
 void GameScene::load() {
-	Player player;
 	// Adds player to entity manager
-	_ents.list.push_back(std::shared_ptr<Entity>(&player));
+	_ents.list.push_back(std::shared_ptr<Player>(&player));
 
 	// Creates 4 ghosts and adds them to entity manager
 	for (int i = 0; i < 4; i++) {

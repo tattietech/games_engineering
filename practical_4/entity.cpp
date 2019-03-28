@@ -3,8 +3,8 @@
 #include <iostream>
 
 void Entity::update(const double dt) {
-	//_shape->setPosition(_position);
-	std::cout << "test" << std::endl;
+	_shape->setPosition(_position);
+	//std::cout << "test" << std::endl;
 }
 
 const sf::Vector2f Entity::getPosition() {
