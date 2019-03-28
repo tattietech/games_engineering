@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "ecm.h"
 #include <SFML/Graphics.hpp>
 
 class Scene {
